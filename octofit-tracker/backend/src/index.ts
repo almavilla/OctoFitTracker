@@ -1,13 +1,26 @@
 import express from 'express'
 import mongoose from 'mongoose'
 import dotenv from 'dotenv'
+import {
+  activityRoutes,
+  leaderboardRoutes,
+  teamRoutes,
+  userRoutes,
+  workoutRoutes
+} from './routes'
 
 dotenv.config()
 
 const app = express()
 app.use(express.json())
 
-const MONGO_URL = process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/octofit'
+app.use('/api/users', userRoutes)
+app.use('/api/teams', teamRoutes)
+app.use('/api/activities', activityRoutes)
+app.use('/api/leaderboard', leaderboardRoutes)
+app.use('/api/workouts', workoutRoutes)
+
+const MONGO_URL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/octofit_db'
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8000
 
 const startServer = () => {
