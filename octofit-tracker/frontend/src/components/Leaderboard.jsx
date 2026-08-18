@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchResource } from '../api'
 
+// API endpoint: https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/leaderboard/
 export default function Leaderboard() {
   const [entries, setEntries] = useState([])
   const [status, setStatus] = useState('loading')
