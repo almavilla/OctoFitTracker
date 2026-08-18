@@ -8,6 +8,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const models_1 = require("../models");
 dotenv_1.default.config();
 const connectionString = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/octofit_db';
+/**
+ * Replaces the five application collections with linked test data for users,
+ * teams, activities, leaderboard entries, and workout recommendations.
+ */
 async function seedDatabase() {
     try {
         await mongoose_1.default.connect(connectionString, { serverSelectionTimeoutMS: 5000 });
