@@ -9,6 +9,7 @@ const models_1 = require("../models");
 dotenv_1.default.config();
 const connectionString = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/octofit_db';
 /**
+ * Seed the octofit_db database with test data.
  * Replaces the five application collections with linked test data for users,
  * teams, activities, leaderboard entries, and workout recommendations.
  */
