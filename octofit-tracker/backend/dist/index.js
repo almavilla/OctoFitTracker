@@ -3,6 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.API_BASE_URL = void 0;
 const express_1 = __importDefault(require("express"));
 const mongoose_1 = __importDefault(require("mongoose"));
 const dotenv_1 = __importDefault(require("dotenv"));
@@ -17,9 +18,13 @@ app.use('/api/leaderboard', routes_1.leaderboardRoutes);
 app.use('/api/workouts', routes_1.workoutRoutes);
 const MONGO_URL = process.env.MONGODB_URI || process.env.MONGO_URL || 'mongodb://127.0.0.1:27017/octofit_db';
 const PORT = process.env.PORT ? Number(process.env.PORT) : 8000;
+exports.API_BASE_URL = process.env.CODESPACE_NAME
+    ? `https://${process.env.CODESPACE_NAME}-8000.app.github.dev`
+    : 'http://localhost:8000';
 const startServer = () => {
     app.listen(PORT, () => {
         console.log(`Backend running on port ${PORT}`);
+        console.log(`API base URL: ${exports.API_BASE_URL}`);
     });
 };
 const checkMongoConnection = async () => {
@@ -38,6 +43,7 @@ app.get('/', (req, res) => {
     res.json({
         status: 'ok',
         environment: process.env.NODE_ENV || 'development',
+        apiBaseUrl: exports.API_BASE_URL,
         mongo: mongoose_1.default.connection.readyState === 1 ? 'connected' : 'disconnected'
     });
 });
